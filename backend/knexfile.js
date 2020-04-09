@@ -2,16 +2,9 @@
 
 module.exports = {
   development: {
-    // client: 'sqlite3 ',
-    // connection: {
-    //   filename: './src/database/db.sqlite'
-    // },
-    // migrations: {
-    //   directory: './src/database/migrations' 
-    // },
     client: 'postgres',
     connection: {
-      database: 'Tschool',
+      database: 'TschoolDev',
       user:     'postgres',
       password: 'root'
     },
@@ -38,11 +31,11 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'postgres',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      database: 'Tschool',
+      user:     'postgres',
+      password: 'root'
     },
     pool: {
       min: 2,
