@@ -2,6 +2,11 @@
 
 # dependencies
 /node_modules
+/src/Pages/NewIncident
+/src/Pages/Profile
+/src/Pages/Register
+/src/Pages/Login
+/src/Header.js
 /.pnp
 .pnp.js
 

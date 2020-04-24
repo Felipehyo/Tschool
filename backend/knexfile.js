@@ -4,14 +4,14 @@ module.exports = {
   development: {
     client: 'postgres',
     connection: {
-      database: 'TschoolDev',
+      database: 'Tschool',
       user:     'postgres',
       password: 'root'
     },
     migrations: {
       directory: './src/database/migrations' 
     },
-    useNullAsDefault: true,
+    useNullAsDefault: false,
   },
 
   staging: {
