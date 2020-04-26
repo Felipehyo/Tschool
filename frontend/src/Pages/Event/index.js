@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { FiPower, FiTrash2 } from 'react-icons/fi';
+import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 
 import logoImg from '../../assets/logoTschool.svg';
 import menuImg from '../../assets/menu.png';
 import btLogout from '../../assets/btLogout.png';
 
-import api from '../../services/api';
+//import api from '../../services/api';
 
 import './style.css';
-import '../side-bar.css';
+import '../standard.css';
+import '../modal-delete.css';
 
 export default function Event(){
     const [open, setOpen] = useState([0]);
@@ -54,6 +55,22 @@ export default function Event(){
         }
     };*/
 
+    function handleDelete(){
+
+    }
+
+    function startDelete(modalId) {
+        const modal = document.getElementById(modalId);
+        
+        modal.classList.add('show');
+        modal.addEventListener('click', (event) => {
+            
+            if(event.target.id == modalId || event.target.className == 'close-login') {
+                modal.classList.remove('show');
+            }
+        });
+    }
+
     function handleLogout() {
         localStorage.clear();
         history.push('/home');
@@ -76,7 +93,7 @@ export default function Event(){
     }
 
     return(
-        <div className="profile-container">
+        <div className="event-container">
             <div className="side-bar-container">
                 <div className="menu-btn">
                     <img id="imgFix" onClick={ () => startModal("sidebar")} src={menuImg} alt="" height="22px"/>       
@@ -93,41 +110,227 @@ export default function Event(){
                 </div>
             </div>
             
-            <div className="body">
-                <header>
-                    <img className="logo" src={logoImg} alt="Tschool"/>
-                    <span>Bem vindo Nome Escola</span>
+            <div className="body-container">
+                <div className="nav-bar-container">
+                    <header>
+                        <img className="logo" src={logoImg} alt="Tschool"/>
+                        <span>Bem vindo Nome Escola</span>
 
-                    <Link className="button" to="/event/new">Cadastrar novo evento</Link>
-                    <button onClick={handleLogout} type="button">
-                        <img src={btLogout} alt=""/>
-                    </button>
-                </header>
+                        <Link className="button" to="events/new">Cadastrar Novo</Link>
+                        <button onClick={handleLogout} type="button">
+                            <img src={btLogout} alt=""/>
+                        </button>
+                    </header>
+                </div>
 
                 <h1>Eventos cadastrados</h1>
 
-                <ul className="events">
-                    <li>teste
-                        <button>
-                            <FiTrash2 size={20} color="#a8a8b3" />
+                <div className="dropdown-container">
+                    <select id="drop-events">
+                        <option value="volvo">Todos os Eventos</option>
+                        <option value="Evento 1">Evento 1</option>
+                        <option value="Evento 2">Evento 2</option>
+                        <option value="Evento 3">Evento 3</option>
+                    </select>
+                    <select id="drop-classes">
+                        <option value="volvo">Todas as Classes</option>
+                        <option value="Class 1">Class 1</option>
+                        <option value="Class 2">Class 2</option>
+                        <option value="Class 3">Class 3</option>
+                    </select>
+                </div>
+
+                <ul className="container-list">
+                    <li>
+                        <strong>Nome</strong>
+                        <p>Nome do Evento</p>
+
+                        <strong>Endereço</strong>
+                        <p>Endereço do Evento</p>
+
+                        <div className="group">
+                            <div>
+                                <strong>Data</strong>
+                                <p>01/01/2020</p>
+                            </div>
+                            <div>
+                                <strong>Horario Inicial</strong>
+                                <p>00:00</p>
+                            </div>
+                            <div>
+                                <strong>Horario Final</strong>
+                                <p>00:00</p>
+                            </div>
+                        </div>
+
+                        <strong>Descrição</strong>
+                        <p>Descrição do evento do Evento</p>
+
+                        <div className="group">
+                            <div>
+                                <strong>Observações</strong>
+                                <p>Nome do Evento</p>
+                            </div>
+                            <div>
+                                <strong>Valor</strong>
+                                <p>R$80,00</p>
+                            </div>
+                        </div>
+
+                        <button className="bt-edit">
+                            <FiEdit2 size={16} color="#fff" />
+                        </button>
+                        
+                        <button className="bt-lixeira" onClick={ () => startDelete('modal-delete')}>
+                            <FiTrash2 size={16} color="#fff" />
                         </button>
                     </li>
-                    <li>teste
-                        <button>
-                            <FiTrash2 size={20} color="#a8a8b3" />
+                    <li>
+                        <strong>Nome</strong>
+                        <p>Nome do Evento</p>
+
+                        <strong>Endereço</strong>
+                        <p>Endereço do Evento</p>
+
+                        <div className="group">
+                            <div>
+                                <strong>Data</strong>
+                                <p>01/01/2020</p>
+                            </div>
+                            <div>
+                                <strong>Horario Inicial</strong>
+                                <p>00:00</p>
+                            </div>
+                            <div>
+                                <strong>Horario Final</strong>
+                                <p>00:00</p>
+                            </div>
+                        </div>
+
+                        <strong>Descrição</strong>
+                        <p>Descrição do evento do Evento</p>
+
+                        <div className="group">
+                            <div>
+                                <strong>Observações</strong>
+                                <p>Nome do Evento</p>
+                            </div>
+                            <div>
+                                <strong>Valor</strong>
+                                <p>R$80,00</p>
+                            </div>
+                        </div>
+
+                        <button className="bt-edit">
+                            <FiEdit2 size={16} color="#fff" />
+                        </button>
+                        
+                        <button className="bt-lixeira" onClick={ () => startDelete('modal-delete')}>
+                            <FiTrash2 size={16} color="#fff" />
                         </button>
                     </li>
-                    <li>teste
-                        <button>
-                            <FiTrash2 size={20} color="#a8a8b3" />
+                    <li>
+                        <strong>Nome</strong>
+                        <p>Nome do Evento</p>
+
+                        <strong>Endereço</strong>
+                        <p>Endereço do Evento</p>
+
+                        <div className="group">
+                            <div>
+                                <strong>Data</strong>
+                                <p>01/01/2020</p>
+                            </div>
+                            <div>
+                                <strong>Horario Inicial</strong>
+                                <p>00:00</p>
+                            </div>
+                            <div>
+                                <strong>Horario Final</strong>
+                                <p>00:00</p>
+                            </div>
+                        </div>
+
+                        <strong>Descrição</strong>
+                        <p>Descrição do evento do Evento</p>
+
+                        <div className="group">
+                            <div>
+                                <strong>Observações</strong>
+                                <p>Nome do Evento</p>
+                            </div>
+                            <div>
+                                <strong>Valor</strong>
+                                <p>R$80,00</p>
+                            </div>
+                        </div>
+
+                        <button className="bt-edit">
+                            <FiEdit2 size={16} color="#fff" />
+                        </button>
+                        
+                        <button className="bt-lixeira" onClick={ () => startDelete('modal-delete')}>
+                            <FiTrash2 size={16} color="#fff" />
                         </button>
                     </li>
-                    <li>teste
-                        <button>
-                            <FiTrash2 size={20} color="#a8a8b3" />
+                    <li>
+                        <strong>Nome</strong>
+                        <p>Nome do Evento</p>
+
+                        <strong>Endereço</strong>
+                        <p>Endereço do Evento</p>
+
+                        <div className="group">
+                            <div>
+                                <strong>Data</strong>
+                                <p>01/01/2020</p>
+                            </div>
+                            <div>
+                                <strong>Horario Inicial</strong>
+                                <p>00:00</p>
+                            </div>
+                            <div>
+                                <strong>Horario Final</strong>
+                                <p>00:00</p>
+                            </div>
+                        </div>
+
+                        <strong>Descrição</strong>
+                        <p>Descrição do evento do Evento</p>
+
+                        <div className="group">
+                            <div>
+                                <strong>Observações</strong>
+                                <p>Nome do Evento</p>
+                            </div>
+                            <div>
+                                <strong>Valor</strong>
+                                <p>R$80,00</p>
+                            </div>
+                        </div>
+
+                        <button className="bt-edit">
+                            <FiEdit2 size={16} color="#fff" />
+                        </button>
+                        
+                        <button className="bt-lixeira" onClick={ () => startDelete('modal-delete')}>
+                            <FiTrash2 size={16} color="#fff" />
                         </button>
                     </li>
                 </ul>
+
+                <div id="modal-delete" className="modal-container-login">
+                    <div className="delete-container">
+                        <section className="form">
+                            <h1>Deletar Evento</h1>
+                            <p>Tem certeza que deseja deletar este evento?</p>
+                            <div className="btn-confirm">
+                                <button id="modal-delete" className="button">Cancelar</button>
+                                <button className="bt-lixeira">Deletar Evento</button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
             </div>
         </div>
     );

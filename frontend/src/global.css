@@ -34,11 +34,12 @@ form input {
 /*configuração padrão para todos os text area dentro de um form*/
 form textarea {
     width: 100%;
-    min-height: 140px;
+    min-height: 40px;
     resize: vertical;
     color: #333;
     border: 1px solid #dcdce6;
     border-radius: 6px;
+    margin-bottom: 2px;
     padding: 8px 12px;
     line-height: 12px;
 }

@@ -1,0 +1,288 @@
+/*Barra Lateral*/
+.side-bar-container {
+    margin: 10px;
+    z-index: 2000;
+}
+
+.side-bar-container .menu{
+    width: 180px;
+    height: 93%;
+    z-index: 2000;
+    margin-right: 0px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+    float: left;
+    display: none;
+    animation: modal .3s;
+}
+
+@keyframes modal {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -60px, 0)
+    } to {
+        opacity: 1;
+        transform: translate3d(0, 0px, 0)
+    }
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: translate3d(10px, 0, 0)
+    } to {
+        opacity: 1;
+        transform: translate3d(0px, 0px, 0)
+    }
+}
+
+@keyframes h3-effect {
+    from {
+        opacity: 0;
+        transform: translate3d(-50px, 0, 0)
+    } to {
+        opacity: 1;
+        transform: translate3d(0px, 0px, 0)
+    }
+}
+
+@keyframes ocult {
+    from {
+        opacity: 1;
+        transform: translate3d(-30px, 0, 0)
+    } to {
+        opacity: 1;
+        transform: translate3d(0px, 0px, 0)
+    }
+}
+
+.side-bar-container .menu.show {
+    display: block;
+    animation: show .7s;
+}
+
+.side-bar-container .menu-btn.show {
+    width: 180px;
+    animation: show .7s;
+}
+
+.side-bar-container .menu-btn h3{
+    display: none;
+}
+
+.side-bar-container .menu-btn h3.show{
+    display: block;
+    animation: h3-effect .7s;
+}
+
+.side-bar-container .menu-btn{
+    display: flex;
+    align-items: center;
+    z-index: 3000;
+    border-radius: 5px;
+    background: #fff;
+    justify-content: center;
+    width: 45px;
+    line-height: 42px;
+    height: 42px;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+    position: relative;
+    animation: ocult .4s;
+}
+
+.side-bar-container .menu-btn img{
+    float: left;
+    left: 0px;
+    position: absolute;
+    margin-left: 12px;
+    width: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.side-bar-container .menu-btn img:hover{
+    filter: brightness(50%);
+    height: 24px;
+}
+
+.side-bar-container .menu-btn h3{
+    font-size: 15px;
+    color: #555;
+    width: 160px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.side-bar-container ul {
+    list-style: none;
+    color: #999;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.side-bar-container ul li {
+    width: 100%;
+    padding: 10px 0 10px 15px ;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.side-bar-container ul li:hover {
+    filter: brightness(50%);
+    background: rgb(0, 0, 0, 0.1);
+}
+
+/*nav bar padrão*/
+.nav-bar-container {
+    z-index: 3000;
+}
+
+.nav-bar-container header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 75vw;
+    background: white;
+    height: 42px;
+    margin-top: 10px;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.nav-bar-container header span {
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+}
+
+.nav-bar-container header img.logo {
+    height: 30px;
+    margin-left: 10px;
+}
+
+.nav-bar-container header a {
+    width: 350px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    background: #91C65D;
+    margin-left: auto;/*Fica o mais na esquerda possível*/
+    margin-top: 0;
+}
+
+.nav-bar-container header button {
+    height: 30px;
+    width: 55px;
+    border-radius: 4px;
+    border: 2px solid #EE7155;
+    opacity: 0.6;
+    margin: 0 auto;
+    background: #fff;
+    margin-right: 8px;
+    margin-left: 8px;
+    transition: 0.1s;
+}
+
+.nav-bar-container header button img{
+    height: 16px;
+    margin-top: 2px;
+}
+
+.nav-bar-container header button:hover {
+    opacity: 0.8;
+}
+
+/*DropDowns*/
+.dropdown-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.dropdown-container select {
+    border: none;
+    background: #fff;
+    color: #41414d;
+    height: 25px;
+    padding: 3px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 7px rgb(0, 0, 0, 0.2);
+}
+
+.dropdown-container select:first-child{
+    margin-right: 5px;
+}
+
+/*List padrão*/
+.container-list {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 12px;
+    list-style: none;
+}
+
+.container-list li {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    min-width: 350px;
+    padding: 24px;
+    margin: 0;
+    border-radius: 8px;
+    position: relative;
+}
+
+.container-list li button {
+    position: absolute;
+    height: 27px;
+    width: 27px;
+    border-radius: 4px;
+    padding-top: 3px;
+    opacity: 0.7;
+    transition: 0.1s;
+    right: 10px;
+    top: 10px;
+    border: 0;
+}
+
+.container-list li button.bt-lixeira {
+    background: #EE7155;
+}
+
+.container-list li button.bt-edit {
+    margin-right: 32px;
+    background: #F6B72D;
+}
+
+.container-list li button:hover {
+    opacity: 1;
+}
+
+.container-list li strong {
+    display: block;
+    margin-bottom: 0px;
+    color: #41414d;
+}
+
+.container-list li p {
+    color: #737380;
+    line-height: 21px;
+    font-size: 12px;
+}
+
+.container-list .group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-list .group div + div{
+    margin-left: 10px;
+}
+
+.container-list .group p {
+    display: block;
+    float: left;
+    margin: 0 auto;
+    justify-content: center;
+}

@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import './style.css';
 
-import api from '../../services/api';
+//import api from '../../services/api';
 
 import logoImg from '../../assets/logoTschool.svg';
 import logoBus from '../../assets/BusSchool.svg';
@@ -26,7 +26,7 @@ export default function Home() {
             //console.log(response.data.name);
             //localStorage.setItem('ongId', id);
             //localStorage.setItem('ongName', response.data.name);
-            history.push('event');
+            history.push('events');
         } catch (err) {
             alert('Falha no Login, tente novamente.');
         }
@@ -43,7 +43,7 @@ export default function Home() {
     async function handleRegister(e) {
         e.preventDefault();
 
-        const data = ({name, email, phone, zipcode, qtdAlunos, password});
+        //const data = ({name, email, phone, zipcode, qtdAlunos, password});
 
         try {
             //await api.post('schools', data);
@@ -60,7 +60,7 @@ export default function Home() {
         modal.classList.add('show');
         modal.addEventListener('click', (event) => {
             
-            if(event.target.id == modalId || event.target.className == 'close-login') {
+            if(event.target.id === modalId || event.target.className === 'close-login') {
                 modal.classList.remove('show');
             }
         });
