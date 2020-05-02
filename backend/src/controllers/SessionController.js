@@ -1,18 +1,18 @@
 const connection = require('../database/connection');
 
 module.exports = {
-    async store (request, response) {
-        const { id } = request.body;
+    async create(req, res){
+        const {email, password} = req.body;
 
-        const ong = await connection('ongs')
-            .where('id', id)
-            .select('name')
-            .first();
+        const schools = await connection('schools')
+        .where('email', email).andWhere('password', password)
+        .select('nameschool', 'id')
+        .first();
 
-        if (!ong) {
-            return response.status(400).json({ error:'Ong not found!' }); 
+        if(!schools){
+            return res.status(400).json({erro: 'E-mail ou senha incorreto'})
         }
-
-        return response.json(ong);
+        
+        return res.json(schools);
     }
 }

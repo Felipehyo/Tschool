@@ -44,6 +44,11 @@ form textarea {
     line-height: 12px;
 }
 
+a {
+    text-decoration: none;
+    color: #888;
+}
+
 /*configuração padrão para a classe .button*/
 .button {
     width: 100%;
@@ -52,6 +57,7 @@ form textarea {
     border: 0;
     border-radius: 5px;
     color: white;
+    cursor: pointer;
     font-weight: 700;
     margin-top: 12px;
     display: inline-block;
@@ -61,6 +67,7 @@ form textarea {
     line-height: 30px;
     transition: filter 0.2s;
 }
+
 /*Efeito mouse por cima do botão*/
 .button:hover {
     filter: brightness(95%);

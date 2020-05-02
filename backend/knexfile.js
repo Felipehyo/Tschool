@@ -1,25 +1,24 @@
 // Update with your config settings.
 
 module.exports = {
+
   development: {
-    client: 'postgres',
+    client: 'sqlite3',
     connection: {
-      database: 'Tschool',
-      user:     'postgres',
-      password: 'root'
+      filename: './src/database/db.sqlite'
     },
     migrations: {
-      directory: './src/database/migrations' 
+      directory: './src/database/migrations'
     },
-    useNullAsDefault: false,
+    useNullAsDefault: true,
   },
 
   staging: {
-    client: 'postgres',
+    client: 'postgresql',
     connection: {
-      database: 'Tschool',
-      user:     'postgres',
-      password: 'root'
+      database: 'my_db',
+      user:     'username',
+      password: 'password'
     },
     pool: {
       min: 2,
@@ -31,11 +30,11 @@ module.exports = {
   },
 
   production: {
-    client: 'postgres',
+    client: 'postgresql',
     connection: {
-      database: 'Tschool',
-      user:     'postgres',
-      password: 'root'
+      database: 'my_db',
+      user:     'username',
+      password: 'password'
     },
     pool: {
       min: 2,

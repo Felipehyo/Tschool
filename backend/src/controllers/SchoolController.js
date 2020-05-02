@@ -1,33 +1,41 @@
 const connection = require('../database/connection');
-
 module.exports = {
-    async index(request, response) {
-        const ongs = await connection('ongs').select('*');
+    async index(req, res){
+        const schools = await connection('schools').select('*');
+
+        return res.json(schools);
+    },
+    async create(req, res){
+        
+    const { nameschool,  num_students, zip_code, email, phone, password} = req.body;
+
+    const [id] = await connection('schools').insert({
+        nameschool
+        ,num_students
+        ,zip_code
+        ,email
+        ,phone
+        ,password
+    });
+
+    return res.json({id})
+    },
+
+    async delete(req, res){
+        const {id} = req.params;
+        const id_Schools = req.headers.authorization;
+
+        const schools = await connection('schools')
+        .where('id', id)
+        .select('id')
+        .first();
     
-        return response.json(ongs);
-    },
+        if(schools.id != id_Schools){
 
-    async store(request, response) {
-        //request.body - corpo json enviado
-        //request.params - enviado pela rota
-        //request.headers.authorization - por uma requisição geralmente com o nome de authorization
-        const { name, number_students } = request.body;
+            return res.status(401).json({error: 'Operation not permitted'});
+        }
+        await connection('schools').where('id', id).delete();
 
-        await connection('schools').insert({
-            name,
-            number_students,
-        });
-
-        //console.log(result);
-
-        return response.json({  });
-    },
-
-    async delete(request, response) {
-
-    },
-
-    async update(request, reponse) {
-    
-    },
+        return res.status(204).send();
+    }
 };

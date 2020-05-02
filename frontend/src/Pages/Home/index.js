@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import './style.css';
 
-//import api from '../../services/api';
+import api from '../../services/api';
 
 import logoImg from '../../assets/logoTschool.svg';
 import logoBus from '../../assets/BusSchool.svg';
@@ -11,7 +11,12 @@ import icClose from '../../assets/close.png';
 
 export default function Home() {
 
-    const [ id, setId ] = useState('');
+    const [ nameschool, setNameSchool ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ phone, setPhone ] = useState('');
+    const [ zip_code, setZip_code ] = useState('');
+    const [ num_students, setNum_students ] = useState('');
+    const [ password, setPassword ] = useState('');
 
     //History para definir rotas
     const history = useHistory();
@@ -21,11 +26,10 @@ export default function Home() {
         e.preventDefault();
 
         try {
-            //const response = await api.post('sessions', { id } );
-
-            //console.log(response.data.name);
-            //localStorage.setItem('ongId', id);
-            //localStorage.setItem('ongName', response.data.name);
+            const response = await api.post('sessions', { email, password } );
+            
+            localStorage.setItem('schoolId', response.data.id);
+            localStorage.setItem('schoolName', response.data.nameschool);
             history.push('events');
         } catch (err) {
             alert('Falha no Login, tente novamente.');
@@ -33,24 +37,22 @@ export default function Home() {
     }
 
     //Função cadastrar
-    const [ name, setName ] = useState('');
-    const [ email, setEmail ] = useState('');
-    const [ phone, setPhone ] = useState('');
-    const [ zipcode, setZipcode ] = useState('');
-    const [ qtdAlunos, setQtdAlunos ] = useState('');
-    const [ password, setPassword ] = useState('');
-
     async function handleRegister(e) {
         e.preventDefault();
 
-        //const data = ({name, email, phone, zipcode, qtdAlunos, password});
-
-        try {
-            //await api.post('schools', data);
-            history.push('/home');
-        } catch(err) {
-            alert('Erro no cadastro, tente novamente');
-        }
+        const data = ({nameschool, email, phone, zip_code, num_students, password});
+        
+        //verificação
+        if (nameschool == "" || email == "" || phone == "" || zip_code == "" || num_students == "" || password == ""){
+            return alert('Preencha todos os campos!');
+        } else {
+            try {
+                await api.post('schools', data);
+                alert(`Escola ${nameschool} Cadastrada com sucesso!`);
+            } catch(err) {
+                alert('Erro no cadastro, tente novamente');
+            }
+        }        
     };
 
     //função chamar modal
@@ -95,11 +97,8 @@ export default function Home() {
                     </section>
                     <section className="formLogin">
                         <form onSubmit={handleLogin}>
-                            <input placeholder="Sua Escola"
-                                value={id} 
-                                onChange={ e => setId(e.target.value) }
-                            />
-                            <input type="password" placeholder="Sua Senha"/>
+                            <input placeholder="Sua Escola" value={email} onChange={ e => setEmail(e.target.value) } />
+                            <input type="password" placeholder="Sua Senha" value={password} onChange={ e => setPassword(e.target.value) }/>
                             <button className="button" type="submit">Entrar</button>
                         </form>
                     </section>
@@ -118,14 +117,14 @@ export default function Home() {
                         <a id="modal-register" className="button" onClick={() => startModal('modal-login')}>Já tenho uma conta</a>
                     </section>
                     <form onSubmit={handleRegister}>
-                        <input placeholder="Nome da Escola" value={name} onChange={ e => setName(e.target.value) }/>
-                        <input placeholder="Quatidade de Alunos" type="number" value={qtdAlunos} onChange={ e => setQtdAlunos(e.target.value) }/>
-                        <input placeholder="CEP" type="text" value={zipcode} onChange={ e => setZipcode(e.target.value) } />
+                        <input placeholder="Nome da Escola" value={nameschool} onChange={ e => setNameSchool(e.target.value) }/>
+                        <input placeholder="Quatidade de Alunos" type="number" value={num_students} onChange={ e => setNum_students(e.target.value) }/>
+                        <input placeholder="CEP" type="text" value={zip_code} onChange={ e => setZip_code(e.target.value) } />
                         <input placeholder="Telefone" value={phone} onChange={ e => setPhone(e.target.value) }/>
                         <input type="email" placeholder="E-mail" value={email} onChange={ e => setEmail(e.target.value) }/>
                         <input placeholder="Senha" type="text" value={password} onChange={ e => setPassword(e.target.value) }/>
 
-                        <button className="button">Cadastrar</button>
+                        <button className="button" type="submit">Cadastrar</button>
                     </form>
                     <span className="close-register" id="modal-register">
                         <img id="modal-register" src={icClose} alt="" height="18px"/>
