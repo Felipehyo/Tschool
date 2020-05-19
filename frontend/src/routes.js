@@ -10,6 +10,8 @@ import Class from './Pages/Class';
 import EventByClass from './Pages/EventClass';
 import Participants from './Pages/Participants';
 
+//import Testes from './Pages/Event/TesteEdit.js';
+
 export default function Routes() {
     return (
         <BrowserRouter>
@@ -21,6 +23,8 @@ export default function Routes() {
                 <Route exact path="/classes" component={Class}/>
                 <Route exact path="/eventsbyclass" component={EventByClass}/>
                 <Route exact path="/participants" component={Participants}/>
+
+                {/* <Route exact path="/teste" component={Testes}/> */}
             </Switch>
         </BrowserRouter>
     );

@@ -7,6 +7,10 @@
     box-sizing: border-box;/*Faz com que o padding se acople no tamanho definido e não o aumente*/
 }
 
+html {
+    font-size: 62.5%;
+}
+
 body {
     font: 400 14px Roboto, sans-serif;
     background: #FAFAFA;

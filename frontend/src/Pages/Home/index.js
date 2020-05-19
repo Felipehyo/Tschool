@@ -21,6 +21,20 @@ export default function Home() {
     //History para definir rotas
     const history = useHistory();
 
+    //Função expandir toogle-menu
+    let show = true;
+
+    
+
+    function starToogleMenu() {
+        const menuToogle = document.querySelector('nav div.toogle-menu');
+        const toogleNavHome = document.querySelector('nav div.toogleNavHome');
+
+        menuToogle.classList.toggle("on", show);
+        toogleNavHome.classList.toggle("onn", show);
+        show = !show;
+    }    
+
     //Função realizar login
     async function handleLogin(e) {
         e.preventDefault();
@@ -58,7 +72,15 @@ export default function Home() {
     //função chamar modal
     function startModal(modalId) {
         const modal = document.getElementById(modalId);
-        
+
+        if (!show) {
+            const menuToogle = document.querySelector('nav div.toogle-menu');
+            const toogleNavHome = document.querySelector('nav div.toogleNavHome');
+            
+            menuToogle.classList.toggle("on", show);
+            toogleNavHome.classList.toggle("onn", show);
+            show = !show;
+        }
         modal.classList.add('show');
         modal.addEventListener('click', (event) => {
             
@@ -75,6 +97,15 @@ export default function Home() {
                 <div className="bts">
                     <button onClick={() => startModal('modal-login')} className="button">Login</button>
                     <button onClick={() => startModal('modal-register')} className="button">Cadastrar</button>
+                </div>
+                <div className="toogle-menu">
+                    <button onClick={() => startModal('modal-login')} className="button">Login</button>
+                    <button onClick={() => startModal('modal-register')} className="button">Cadastrar</button>
+                </div>
+                <div className="toogleNavHome" onClick={starToogleMenu}>
+                    <div className="one"></div>
+                    <div className="two"></div>
+                    <div className="three"></div>
                 </div>
             </nav>
             <section className="more">
