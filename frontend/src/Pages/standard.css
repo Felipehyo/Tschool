@@ -400,18 +400,6 @@ h1{
     cursor: pointer;
 }
 
-.modal-register-container .content form input.inSenha {
-    margin-left: 10px;
-}
-
-.modal-register-container .content form input.inRG {
-    margin-left: 10px;
-}
-
-.modal-register-container .content form input.inEscola{
-    width: 310px;
-}
-
 .modal-register-container .content div.input-group {
     text-align: center;
     padding: 0;

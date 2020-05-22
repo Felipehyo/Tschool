@@ -32,7 +32,7 @@ export default function Event(){
     const [events, setEvents] = useState([]);
     const [eventListId, setEventListId] = useState(['']);
 
-    const [open, setOpen] = useState([0]);
+    const [open, setOpen] = useState(0);
     const history = useHistory();
 
     //Drop Dows
@@ -164,6 +164,7 @@ export default function Event(){
         cancel.addEventListener('click', () => { event.removeEventListener('click', addDelete) });
         
         event.addEventListener('click', addDelete);
+        event.addEventListener('click', () => { event.removeEventListener('click', addDelete) });
     }
 
     function handleLogout() {
@@ -174,7 +175,7 @@ export default function Event(){
     function startSideBar(menuId) {
         const menu = document.getElementById(menuId);
         const text = document.querySelector('.menu-btn');
-        if (open == 0) {
+        if (open === 0) {
             menu.classList.add('show');
             text.classList.add('show');
             document.querySelector('.menu-btn h3').classList.add('show');
@@ -225,7 +226,7 @@ export default function Event(){
                     <select id="drop-classes">
                             <option value="default">Todas os Eventos</option>
                         {events.map( (event) => (
-                            <option key={event.id} value={event.id}>
+                            <option key={event.id_event} value={event.id_event}>
                                 {event.title}
                             </option>
                         ))}
@@ -233,7 +234,7 @@ export default function Event(){
                     <select id="drop-classes">
                             <option value="default">Todas as Classes</option>
                         {classList.map( (classe) => (
-                            <option key={classe.id} value={classe.id}>
+                            <option key={classe.id_class} value={classe.id_class}>
                                 {classe.nameclass}
                             </option>
                         ))}

@@ -57,7 +57,7 @@ export default function Home() {
         const data = ({nameschool, email, phone, zip_code, num_students, password});
         
         //verificação
-        if (nameschool == "" || email == "" || phone == "" || zip_code == "" || num_students == "" || password == ""){
+        if (nameschool === "" || email === "" || phone === "" || zip_code === "" || num_students === "" || password === ""){
             return alert('Preencha todos os campos!');
         } else {
             try {
@@ -123,13 +123,13 @@ export default function Home() {
 
                         <form action="">
                             <h1>Faça seu Login</h1>
-                            <a id="modal-login" className="button" onClick={ () => startModal('modal-register') }>Ainda não tenho conta</a>
+                            <button id="modal-login" className="button" onClick={ () => startModal('modal-register') }>Ainda não tenho conta</button>
                         </form>
                     </section>
                     <section className="formLogin">
                         <form onSubmit={handleLogin}>
-                            <input placeholder="Sua Escola" value={email} onChange={ e => setEmail(e.target.value) } />
-                            <input type="password" placeholder="Sua Senha" value={password} onChange={ e => setPassword(e.target.value) }/>
+                            <input tabIndex="2" type="password" placeholder="Sua Senha" value={password} onChange={ e => setPassword(e.target.value) } />
+                            <input tabIndex="1" type="text" placeholder="Sua Escola" value={email} onChange={ e => setEmail(e.target.value) }/>
                             <button className="button" type="submit">Entrar</button>
                         </form>
                     </section>
@@ -145,7 +145,7 @@ export default function Home() {
                         <img src={logoImg} alt="Tschool"/>
                         <h1>Cadastro</h1>
                         <p>Faça seu cadastro, entre na plataforma e facilite a autorização dos eventos em sua escola.</p>
-                        <a id="modal-register" className="button" onClick={() => startModal('modal-login')}>Já tenho uma conta</a>
+                        <button id="modal-register" className="button" onClick={() => startModal('modal-login')}>Já tenho uma conta</button>
                     </section>
                     <form onSubmit={handleRegister}>
                         <input placeholder="Nome da Escola" value={nameschool} onChange={ e => setNameSchool(e.target.value) }/>
@@ -153,7 +153,7 @@ export default function Home() {
                         <input placeholder="CEP" type="text" value={zip_code} onChange={ e => setZip_code(e.target.value) } />
                         <input placeholder="Telefone" value={phone} onChange={ e => setPhone(e.target.value) }/>
                         <input type="email" placeholder="E-mail" value={email} onChange={ e => setEmail(e.target.value) }/>
-                        <input placeholder="Senha" type="text" value={password} onChange={ e => setPassword(e.target.value) }/>
+                        {/* <input placeholder="Senha" type="text" value={password} onChange={ e => setPassword(e.target.value) }/> */}
 
                         <button className="button" type="submit">Cadastrar</button>
                     </form>

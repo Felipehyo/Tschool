@@ -44,14 +44,14 @@
     margin-bottom: 20px;
 }
 
-.student-container .modal-register-container select {
+.modal-register-container select {
     border: none;
     width: 100%;
     background: #fff;
     margin-bottom: 6px;
     color: #333;
     border: 1px solid #dcdce6;
-    height: 25px;
+    height: 30px;
     padding: 3px;
     border-radius: 4px;
 }

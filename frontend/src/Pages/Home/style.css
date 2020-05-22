@@ -153,7 +153,7 @@
     color: #5A5A5A;
 }
 
-.login-container section.form a {
+.login-container section.form button {
     max-width: 80%;
     background: white;
     color: #F6B422;
@@ -184,6 +184,16 @@
 
 .login-container section.formLogin form input {
     margin-top: 12px;
+    order: 0;
+}
+
+.login-container section.formLogin form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container section.formLogin form input:nth-child(2) {
+    order: -1;
 }
 
 .login-container .close-login {
@@ -259,7 +269,7 @@
     line-height: 18px;
 }
 
-.modal-container-register .content section a {
+.modal-container-register .content section button {
     max-width: 80%;
     background: white;
     margin-top: 15px;

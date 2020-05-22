@@ -1,12 +1,14 @@
 const express = require('express');
 const routes = express.Router();
 
-const SchoolController = require('./controllers/SchoolController')
-const SessionController = require('./controllers/SessionController')
-const ClassController = require('./controllers/ClassController')
-const ResponsibleController = require('./controllers/ResponsibleController')
-const StudentController = require('./controllers/StudentController')
-const EventController = require('./controllers/EventController')
+const SchoolController = require('./controllers/SchoolController');
+const SessionController = require('./controllers/SessionController');
+const ClassController = require('./controllers/ClassController');
+const ResponsibleController = require('./controllers/ResponsibleController');
+const StudentController = require('./controllers/StudentController');
+const EventController = require('./controllers/EventController');
+const EventClassController = require('./controllers/EventClassController');
+const ParticipantsController = require('./controllers/ParticipantsController');
 
 //Rotas Escolas
 routes.get('/schools', SchoolController.index);
@@ -43,8 +45,19 @@ routes.put('/student/:id', StudentController.update);
 routes.get('/event',  EventController.index);
 routes.get('/event/:id_event',  EventController.eventbyid);
 routes.post('/event', EventController.create);
-routes.delete('/event/:id', EventController.delete);
+routes.delete('/event/:id_event', EventController.delete);
 routes.put('/event/:id_event', EventController.update);
+
+//Rotas Event-class
+routes.get('/eventclass',  EventClassController.index);
+routes.post('/eventclass', EventClassController.create);
+routes.delete('/eventclass/:id', EventClassController.delete);
+
+//Rotas Participants
+routes.get('/participants',  ParticipantsController.index);
+routes.get('/participants/:id_class',  ParticipantsController.listparticipantsbyclass);
+routes.post('/participants', ParticipantsController.create);
+routes.put('/participants/:id_event', ParticipantsController.update);
 
 
 

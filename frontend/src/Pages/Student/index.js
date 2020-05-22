@@ -29,7 +29,7 @@ export default function Student(){
     const [students, setStudents] = useState([]);
     const [classList, setClassList] = useState([]);
     const [studentListId, setStudentListId] = useState(['']);
-    const [open, setOpen] = useState([0]);
+    const [open, setOpen] = useState(0);
     const history = useHistory();
 
     async function handleRegister(e) {
@@ -113,6 +113,7 @@ export default function Student(){
             setIdade(res.data[0].idade);
             setResponsible(res.data[0].cpf);
             setClasse(res.data[0].id_class);
+            //alert(res.data[0].id_class)
         };
 
         datas();
@@ -120,10 +121,9 @@ export default function Student(){
 
     async function handleUpdate() {
         const data = ({ name_student, idade });
-        alert(studentListId);
         try {
             removeModal('modal-edit');
-
+            alert(id_class);
             await api.put(`student/${studentListId}`, data, { 
                 headers: { Authclass: id_class, Cpf: id_res } 
             });
@@ -158,6 +158,7 @@ export default function Student(){
         cancel.addEventListener('click', () => { trash.removeEventListener('click', addDelete) });
         
         trash.addEventListener('click', addDelete);
+        trash.addEventListener('click', () => { trash.removeEventListener('click', addDelete) });
     }
 
     function handleLogout() {
@@ -168,7 +169,7 @@ export default function Student(){
     function startSideBar(menuId) {
         const menu = document.getElementById(menuId);
         const text = document.querySelector('.menu-btn');
-        if (open == 0) {
+        if (open === 0) {
             menu.classList.add('show');
             text.classList.add('show');
             document.querySelector('.menu-btn h3').classList.add('show');
@@ -219,7 +220,7 @@ export default function Student(){
                     <select id="drop-classes">
                             <option value="default">Todas as Classes</option>
                         {classList.map( (classe) => (
-                            <option key={classe.id} value={classe.id}>
+                            <option key={classe.id_class} value={classe.id_class}>
                                 {classe.nameclass}
                             </option>
                         ))}
@@ -284,7 +285,7 @@ export default function Student(){
                                 <input placeholder="cpf" value={rg} onChange={ e => setCpf(e.target.value) } type="text"/>
                             </div> */}
 
-                            <select id="drop-classes" onChange={ e => setClasse(e.target.value) }>
+                            <select id="drop-classes-register" onChange={ e => setClasse(e.target.value) }>
                                 <option value="" >Selecione uma Classe</option>
                                 {classList.map( (classe) => (
                                     <option key={classe.id_class} value={classe.id_class} onChange={ e => setClasse(classe.id_class) }>
@@ -318,7 +319,7 @@ export default function Student(){
                                 <input placeholder="cpf" value={rg} onChange={ e => setCpf(e.target.value) } type="text"/>
                             </div> */}
 
-                            <select id="drop-classes">
+                            <select id="drop-classes" onChange={ e => setClasse(e.target.value) }>
                                 <option value="" >Selecione uma Classe</option>
                                 {classList.map( (classe) => (
                                     <option key={classe.id_class} value={classe.id_class} onChange={ e => setClasse(classe.id_class) }>

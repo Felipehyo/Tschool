@@ -27,7 +27,7 @@ export default function Responsible(){
     //Variáveis padrões
     const [responsibles, setResponsibles] = useState([]);
     const [responsibleListId, setResponsibleListId] = useState(['']);
-    const [open, setOpen] = useState([0]);
+    const [open, setOpen] = useState(0);
     const history = useHistory();
 
     //Drop Downs
@@ -145,6 +145,7 @@ export default function Responsible(){
         cancel.addEventListener('click', () => { trash.removeEventListener('click', addDelete) });
         
         trash.addEventListener('click', addDelete);
+        trash.addEventListener('click', () => { trash.removeEventListener('click', addDelete) });
     }
 
     function handleLogout() {
@@ -155,7 +156,7 @@ export default function Responsible(){
     function startSideBar(menuId) {
         const menu = document.getElementById(menuId);
         const text = document.querySelector('.menu-btn');
-        if (open == 0) {
+        if (open === 0) {
             menu.classList.add('show');
             text.classList.add('show');
             document.querySelector('.menu-btn h3').classList.add('show');
@@ -206,7 +207,7 @@ export default function Responsible(){
                     <select id="drop-classes">
                             <option value="default">Todas as Classes</option>
                         {classList.map( (classe) => (
-                            <option key={classe.id} value={classe.id}>
+                            <option key={classe.id_class} value={classe.id_class}>
                                 {classe.nameclass}
                             </option>
                         ))}
@@ -259,14 +260,14 @@ export default function Responsible(){
                     </section>
                     <form onSubmit={handleRegister}>
                         <input placeholder="Nome do Responsável" className="inEscola" value={name_res} onChange={ e => setName_Res(e.target.value) }/>
-                        <td>
+                        <div className="input-group">
                             <input placeholder="Usuário" type="text" value={email} onChange={ e => setEmail(e.target.value) }/>                        
                             <input type="text" placeholder="CPF" value={cpf} onChange={ e => setCpf(e.target.value) }/>
-                        </td>
-                        <td>
+                        </div>
+                        <div className="input-group">
                             <input placeholder="Senha" type="password" className="inSenha" value={password} onChange={ e => setPassword(e.target.value) }/>
                             <input placeholder="CEP" type="text" className="inRG" value={zip_code} onChange={ e => setZip_code(e.target.value) }/>
-                        </td>
+                        </div>
                         <button id="modal-responsible" className="button" type="submit">Cadastrar Responsável</button>
                     </form>
                     <span className="close-register" id="modal-responsible">
@@ -284,14 +285,14 @@ export default function Responsible(){
                     </section>
                     <form onSubmit={handleUpdate}>
                         <input placeholder="Nome do Responsável" className="inEscola" value={name_res} onChange={ e => setName_Res(e.target.value) }/>
-                        <td>
+                        <div className="input-group">
                             <input placeholder="Usuário" type="text" value={email} onChange={ e => setEmail(e.target.value) }/>                        
                             <input type="text" placeholder="CPF" value={cpf} onChange={ e => setCpf(e.target.value) }/>
-                        </td>
-                        <td>
+                        </div>
+                        <div className="input-group">
                             <input placeholder="Senha" type="password" className="inSenha" value={password} onChange={ e => setPassword(e.target.value) }/>
                             <input placeholder="CEP" type="text" className="inRG" value={zip_code} onChange={ e => setZip_code(e.target.value) }/>
-                        </td>
+                        </div>
                         <button className="button" type="submit">Atualizar dados</button>
                     </form>
                     <span className="close-register" id="modal-edit">

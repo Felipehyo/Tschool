@@ -24,7 +24,7 @@ export default function Class(){
     const [classes, setClasses] = useState([]);
     const [classListId, setClassListId] = useState(['']);
 
-    const [open, setOpen] = useState([0]);
+    const [open, setOpen] = useState(0);
     const history = useHistory();
 
     async function handleRegister(e) {
@@ -138,6 +138,7 @@ export default function Class(){
         cancel.addEventListener('click', () => { trash.removeEventListener('click', addDelete) });
         
         trash.addEventListener('click', addDelete);
+        trash.addEventListener('click', () => { trash.removeEventListener('click', addDelete) });
     }
 
     function handleLogout() {
@@ -148,7 +149,7 @@ export default function Class(){
     function startSideBar(menuId) {
         const menu = document.getElementById(menuId);
         const text = document.querySelector('.menu-btn');
-        if (open == 0) {
+        if (open === 0) {
             menu.classList.add('show');
             text.classList.add('show');
             document.querySelector('.menu-btn h3').classList.add('show');

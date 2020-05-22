@@ -2,7 +2,7 @@ const connection = require('../database/connection');
 
 module.exports = {
     async create(req, res){
-        const {email, password} = req.body;
+        const { email, password } = req.body;
 
         const schools = await connection('schools')
         .where('email', email).andWhere('password', password)

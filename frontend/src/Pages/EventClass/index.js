@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { FiTrash2 } from 'react-icons/fi';
 
 import logoImg from '../../assets/logoTschool.svg';
 import menuImg from '../../assets/menu.png';
 import btLogout from '../../assets/btLogout.png';
 import icClose from '../../assets/close.png';
 
-//import api from '../../services/api';
+import api from '../../services/api';
 
 import './style.css';
 import '../standard.css';
@@ -20,60 +20,89 @@ export default function EventClass(){
     //const id = localStorage.getItem('ongId');
 
     //Função cadastrar
-    const [ nameEvent, setNameEvent ] = useState('');
-    const [ nameClass, setNameClass ] = useState('');
+    const [ eventClass, setEventClass ] = useState([]);
 
-    const [open, setOpen] = useState([0]);
+    const [ classList, setClassList ] = useState([]);
+    const [ eventList, setEventList ] = useState([]);
+
+    const [ id_class, setClasse ] = useState('');
+    const [ id_event, setEvents ] = useState('');
+
+    const [open, setOpen] = useState(0);
     const history = useHistory();
 
     async function handleRegister(e) {
         e.preventDefault();
 
-        const data = ({nameEvent, nameClass});
+        const data = ({id_event, id_class});
 
         try {
-            //await api.post('schools', data);
-            history.push('/home');
+            await api.post('eventclass', data, {
+                headers: {
+                    Authorization: schoolId,
+                }
+            });
+            window.location.reload();
         } catch(err) {
-            alert('Erro no cadastro, tente novamente');
+            alert('Associação já existe.');
         }
     };
 
-    /*async function testSession() {
-        try {
-            await api.post('sessions', { id } );
-        } catch {
-            history.push('/');
-        }
-    }*/
-
-    /*useEffect( () => {
-        //testSession();
-        api.get('profile', {
+    //Carregar lista do banco
+    useEffect( () => {
+        api.get('eventclass', {
             headers: {
-                Authorization: ongId,
+                Authorization: schoolId,
             }
         }).then(response => {
-            setIncidents(response.data);
+            setEventClass(response.data);
         });
-    }, [ongId]);*/ //2 parametros - 1)Qual função a ser executada. 2)Quando que a função será executada.
+        api.get('class', {
+            headers: {
+                Authorization: schoolId,
+            }
+        }).then(response => {
+            setClassList(response.data);
+        });
+        api.get('event', {
+            headers: {
+                Authorization: schoolId,
+            }
+        }).then(response => {
+            setEventList(response.data);
+        });
+    }, [schoolId]); //2 parametros - 1)Qual função a ser executada. 2)Quando que a função será executada.
 
-    /*async function handleDeleteIncident(id) {
-        try {
-            await api.delete(`incidents/${id}`, {
-                headers: {
-                    Authorization: ongId,
-                }
-            });
+   function startModalDelete(id) {
+        const modal = document.getElementById('modal-delete');
+        const event = document.querySelector('div.btn-confirm button.bt-lixeira');
+        const cancel = document.querySelector('div.btn-confirm button#modal-delete');
 
-            setIncidents(incidents.filter(incident => incident.id !== id))
-        } catch (err) {
-            alert('Erro ao deletar caso, tente novamente.');
+        modal.classList.add('show');
+        modal.addEventListener('click', (event) => {
+            if(event.target.id === 'modal-delete' || event.target.id === 'bt-lixeira-event') {
+                modal.classList.remove('show');
+            }
+        });
+
+        const addDelete = async () => {
+            try {
+                await api.delete(`eventclass/${id}`, {
+                    headers: {
+                        Authorization: schoolId,
+                    }
+                });
+                setEventClass(eventClass.filter(evclass => evclass.id !== id))
+            } catch (err) {
+                alert('Erro ao deletar Associação, tente novamente.');
+            }
         }
-    };*/
 
-    function handleDelete(){
-
+        //Evento para remover evento do botão e não deletar todos os eventos que foram clicados ao mesmo tempo
+        cancel.addEventListener('click', () => { event.removeEventListener('click', addDelete) });
+        
+        event.addEventListener('click', addDelete);
+        event.addEventListener('click', () => { event.removeEventListener('click', addDelete) });
     }
 
     function startModal(modalId) {
@@ -82,7 +111,7 @@ export default function EventClass(){
         modal.classList.add('show');
         modal.addEventListener('click', (event) => {
             
-            if(event.target.id == modalId || event.target.className == 'close-login') {
+            if(event.target.id === modalId || event.target.className === 'close-login') {
                 modal.classList.remove('show');
             }
         });
@@ -96,7 +125,7 @@ export default function EventClass(){
     function startSideBar(menuId) {
         const menu = document.getElementById(menuId);
         const text = document.querySelector('.menu-btn');
-        if (open == 0) {
+        if (open === 0) {
             menu.classList.add('show');
             text.classList.add('show');
             document.querySelector('.menu-btn h3').classList.add('show');
@@ -144,102 +173,24 @@ export default function EventClass(){
                 <h1>Eventos por Classe</h1>
 
                 <ul className="container-list">
-                    <li>
-                        <div className="group">
-                            <div>
-                                <strong>Nome</strong>
-                                <p>Nome da Classe</p>
+                    {eventClass.map( (evclass) => (
+                        <li key={evclass.id}>
+                            <div className="group">
+                                <div>
+                                    <strong>Evento</strong>
+                                    <p>{evclass.title}</p>
+                                </div>
+                                <div>
+                                    <strong>Classe</strong>
+                                    <p>{evclass.nameclass}</p>
+                                </div>
                             </div>
-                            <div>
-                                <strong>Período</strong>
-                                <p>Matutino/tarde</p>
-                            </div>
-                            <div>
-                                <strong>Qtd Alunos</strong>
-                                <p>XX</p>
-                            </div>
-                        </div>
 
-                        <button className="bt-edit">
-                            <FiEdit2 size={16} color="#fff" />
-                        </button>
-                        
-                        <button className="bt-lixeira" onClick={ () => startModal('modal-delete')}>
-                            <FiTrash2 size={16} color="#fff" />
-                        </button>
-                    </li>
-                    <li>
-                        <div className="group">
-                            <div>
-                                <strong>Nome</strong>
-                                <p>Nome da Classe</p>
-                            </div>
-                            <div>
-                                <strong>Período</strong>
-                                <p>Matutino/tarde</p>
-                            </div>
-                            <div>
-                                <strong>Qtd Alunos</strong>
-                                <p>XX</p>
-                            </div>
-                        </div>
-                        
-                        <button className="bt-edit">
-                            <FiEdit2 size={16} color="#fff" />
-                        </button>
-                        
-                        <button className="bt-lixeira" onClick={ () => startModal('modal-delete')}>
-                            <FiTrash2 size={16} color="#fff" />
-                        </button>
-                    </li>
-                    <li>
-                        <div className="group">
-                            <div>
-                                <strong>Nome</strong>
-                                <p>Nome da Classe</p>
-                            </div>
-                            <div>
-                                <strong>Período</strong>
-                                <p>Matutino/tarde</p>
-                            </div>
-                            <div>
-                                <strong>Qtd Alunos</strong>
-                                <p>XX</p>
-                            </div>
-                        </div>
-                        
-                        <button className="bt-edit">
-                            <FiEdit2 size={16} color="#fff" />
-                        </button>
-                        
-                        <button className="bt-lixeira" onClick={ () => startModal('modal-delete')}>
-                            <FiTrash2 size={16} color="#fff" />
-                        </button>
-                    </li>
-                    <li>
-                        <div className="group">
-                            <div>
-                                <strong>Nome</strong>
-                                <p>Nome da Classe</p>
-                            </div>
-                            <div>
-                                <strong>Período</strong>
-                                <p>Matutino/tarde</p>
-                            </div>
-                            <div>
-                                <strong>Qtd Alunos</strong>
-                                <p>XX</p>
-                            </div>
-                        </div>
-                        
-                        <button className="bt-edit">
-                            <FiEdit2 size={16} color="#fff" />
-                        </button>
-                        
-                        <button className="bt-lixeira" onClick={ () => startModal('modal-delete')}>
-                            <FiTrash2 size={16} color="#fff" />
-                        </button>
-                    </li>
+                            <button className="bt-lixeira" onClick={ () => startModalDelete(evclass.id) }>
+                                <FiTrash2 size={16} color="#fff" />
+                            </button>
+                        </li>
+                    ))}
                 </ul>
 
                 <div id="modal-event-class" className="modal-register-container">
@@ -248,12 +199,26 @@ export default function EventClass(){
                             <img src={logoImg} alt="Tschool"/>
                             <h1>Add Evento para Classe</h1>
                             <p>Informe o nome do evento e o nome da classe conforme cadastrados no banco.</p>
-                            <Link id="modal-event-class" className="button">Voltar eventos por classe</Link>
                         </section>
                         <form onSubmit={handleRegister}>
-                            <input placeholder="Nome do Evento" value={nameEvent} onChange={ e => setNameEvent(e.target.value) }/>
-                            <input placeholder="Nome da Classe" value={nameClass} onChange={ e => setNameClass(e.target.value) } type="text"/>
-                            
+                            <select id="drop-classes" onChange={ e => setEvents(e.target.value) }>
+                                <option value="" >Selecione um Evento</option>
+                                {eventList.map( (event) => (
+                                    <option key={event.id_event} value={event.id_event} onChange={ e => setEvents(event.id_event) }>
+                                        {event.title}
+                                    </option>
+                                ))}
+                            </select>
+
+                            <select id="drop-classes" onChange={ e => setClasse(e.target.value) }>
+                                <option value="" >Selecione uma Classe</option>
+                                {classList.map( (classe) => (
+                                    <option key={classe.id_class} value={classe.id_class} onChange={ e => setClasse(classe.id_class) }>
+                                        {classe.nameclass}
+                                    </option>
+                                ))}
+                            </select>
+
                             <button className="button">Adicionar evento para classe</button>
                             <span className="close-register" id="modal-event-class">
                                 <img id="modal-event-class" src={icClose} alt="" height="18px"/>
@@ -269,7 +234,7 @@ export default function EventClass(){
                             <p>Tem certeza que deseja deletar esta relação?</p>
                             <div className="btn-confirm">
                                 <button id="modal-delete" className="button">Cancelar</button>
-                                <button className="bt-lixeira">Deletar Relação</button>
+                                <button id="bt-lixeira-event" className="bt-lixeira">Deletar Relação</button>
                             </div>
                         </section>
                     </div>

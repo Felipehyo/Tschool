@@ -25,3 +25,11 @@
 .new-responsible-container .side-bar-container ul li:nth-child(1) {
     color: #555;
 }
+
+#modal-responsible .content div.input-group input:first-child {
+    width: 100%;
+}
+
+#modal-responsible .content div.input-group input {
+    padding: 10px;
+}
