@@ -143,7 +143,7 @@ export default function Class(){
 
     function handleLogout() {
         localStorage.clear();
-        history.push('/home');
+        history.push('/');
     }
 
     function startSideBar(menuId) {

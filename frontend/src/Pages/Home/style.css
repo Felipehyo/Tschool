@@ -144,7 +144,7 @@
     width: 100%;
 }
 
-.login-container section.form form h1{
+.login-container section.form h1{
     font-size: 24px;
     width: 100%;
     margin-top: 20px;
@@ -437,9 +437,20 @@ div.toogleNavHome:hover {
     .home-container nav .bts {
         display: none;
     }
+
     div.toogleNavHome {
         display: block;
         z-index: 2000;
+    }
+}
+
+@media (max-width: 325px){
+    .login-container section.form button {
+        font-size: 13px;
+    }
+
+    .modal-container-register .content section button {
+        font-size: 13px;
     }
 }
 

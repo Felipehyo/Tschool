@@ -150,7 +150,7 @@ export default function Responsible(){
 
     function handleLogout() {
         localStorage.clear();
-        history.push('/home');
+        history.push('/');
     }
 
     function startSideBar(menuId) {

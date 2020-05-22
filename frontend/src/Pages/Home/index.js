@@ -120,11 +120,8 @@ export default function Home() {
                 <div className="login-container">
                     <section className="form">
                         <img src={logoImg} alt="Tschool"/>
-
-                        <form action="">
-                            <h1>Faça seu Login</h1>
-                            <button id="modal-login" className="button" onClick={ () => startModal('modal-register') }>Ainda não tenho conta</button>
-                        </form>
+                        <h1>Faça seu Login</h1>
+                        <button id="modal-login" className="button" onClick={() => startModal('modal-register')}>Ainda não tenho conta</button>
                     </section>
                     <section className="formLogin">
                         <form onSubmit={handleLogin}>
@@ -141,7 +138,7 @@ export default function Home() {
 
             <div id="modal-register" className="modal-container-register">
                 <div className="content">
-                    <section>
+                    <section className="form">
                         <img src={logoImg} alt="Tschool"/>
                         <h1>Cadastro</h1>
                         <p>Faça seu cadastro, entre na plataforma e facilite a autorização dos eventos em sua escola.</p>

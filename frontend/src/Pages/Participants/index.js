@@ -95,7 +95,7 @@ export default function Participant(){
 
     function handleLogout() {
         localStorage.clear();
-        history.push('/home');
+        history.push('/');
     }
 
     function startSideBar(menuId) {
