@@ -11,7 +11,7 @@ import Participants from './Pages/Participants';
 
 /*Autenticação*/
 import { isAuthenticated } from './Auth'
-const PrivateRoute = ({ component: Component, ... rest }) => (
+const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {... rest} render = { 
         props => isAuthenticated() ? (
             <Component {... props} />

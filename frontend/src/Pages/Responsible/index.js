@@ -92,6 +92,11 @@ export default function Responsible(){
         modal.addEventListener('click', (event) => {
             if(event.target.id === 'modal-edit') {
                 modal.classList.remove('show');
+                setName_Res('');
+                setZip_code('');
+                setEmail('');
+                setPassword('');
+                setCpf('');
             }
         });
 

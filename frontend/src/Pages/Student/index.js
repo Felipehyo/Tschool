@@ -259,8 +259,8 @@ export default function Student(){
                             </div>
                         </div>
 
-                        <button className="bt-edit">
-                            <FiEdit2 size={16} color="#fff" onClick={ () => startModalEdit(student.id) }/>
+                        <button className="bt-edit" onClick={ () => startModalEdit(student.id) }>
+                            <FiEdit2 size={16} color="#fff"/>
                         </button>
                         
                         <button className="bt-lixeira" onClick={ () => startModalDelete(student.id) }>

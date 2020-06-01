@@ -85,6 +85,8 @@ export default function Class(){
         modal.addEventListener('click', (event) => {
             if(event.target.id === 'modal-edit') {
                 modal.classList.remove('show');
+                setName('');
+                setPeriod('');
             }
         });
 

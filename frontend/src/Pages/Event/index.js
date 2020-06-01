@@ -104,6 +104,14 @@ export default function Event(){
         modal.addEventListener('click', (event) => {
             if(event.target.id === 'modal-edit') {
                 modal.classList.remove('show');
+                setTitle('');
+                setDescription('');
+                setDate('');
+                setValue('');
+                setObservation('');
+                setHr_fin('');
+                setHr_ini('');
+                setEndereco('');
             }
         });
 
