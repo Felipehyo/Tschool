@@ -15,8 +15,11 @@ routes.get('/schools', SchoolController.index);
 routes.post('/schools', SchoolController.create);
 routes.delete('/schools/:id', SchoolController.delete);
 
-//Rota de Login
+//Rota de Login Web
 routes.post('/sessions', SessionController.create);
+
+//Rota de Login Mobile
+routes.post('/signin', SessionController.singInApp);
 
 //Rotas Classes
 routes.get('/class',  ClassController.index);
@@ -58,7 +61,5 @@ routes.get('/participants',  ParticipantsController.index);
 routes.get('/participants/:id_class',  ParticipantsController.listparticipantsbyclass);
 routes.post('/participants', ParticipantsController.create);
 routes.put('/participants/:id_event', ParticipantsController.update);
-
-
 
 module.exports = routes;
