@@ -25,6 +25,32 @@ module.exports = {
         return res.json(students);
     },
 
+    async studentsbyresponsible(req, res){
+        const id_res = req.headers.authorization;
+
+        const students = await connection('students')
+        .select('*').innerJoin('class', 'students.id_class', 'class.id_class')
+        .innerJoin('responsibles', 'students.id_res', 'responsibles.id_res')
+        .where('students.id_res', id_res)
+        .orderBy('name_student');
+        
+        return res.json(students);
+    },
+
+    async studensresdetails(req, res){
+  
+        const id_res = req.headers.authorization;
+        const id_stud = req.headers.authstud
+
+        const students = await connection('students')
+        .select('*').innerJoin('class', 'students.id_class', 'class.id_class')
+        .innerJoin('responsibles', 'students.id_res', 'responsibles.id_res')
+        .where('students.id_res', id_res).andWhere('students.id', id_stud)
+        .orderBy('name_student');
+        
+        return res.json(students);
+    },
+
     async studentbyid(request, response){
         const id = request.params;
 

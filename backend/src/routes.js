@@ -13,6 +13,7 @@ const ParticipantsController = require('./controllers/ParticipantsController');
 //Rotas Escolas
 routes.get('/schools', SchoolController.index);
 routes.post('/schools', SchoolController.create);
+routes.get('/schoolbyid', SchoolController.schoolbyid);
 routes.delete('/schools/:id', SchoolController.delete);
 
 //Rota de Login Web
@@ -43,6 +44,8 @@ routes.get('/studentsbyid/:id',  StudentController.studentbyid);
 routes.post('/student', StudentController.create);
 routes.delete('/student/:id', StudentController.delete);
 routes.put('/student/:id', StudentController.update);
+routes.get('/studentsbyres',  StudentController.studentsbyresponsible);
+routes.get('/studensresdetails',  StudentController.studensresdetails);
 
 //Rotas Eventos
 routes.get('/event',  EventController.index);
@@ -50,11 +53,13 @@ routes.get('/event/:id_event',  EventController.eventbyid);
 routes.post('/event', EventController.create);
 routes.delete('/event/:id_event', EventController.delete);
 routes.put('/event/:id_event', EventController.update);
+routes.get('/eventres', EventClassController.eventbystudent);
 
 //Rotas Event-class
 routes.get('/eventclass',  EventClassController.index);
 routes.post('/eventclass', EventClassController.create);
 routes.delete('/eventclass/:id', EventClassController.delete);
+routes.get('/eventbystudatails',  EventClassController.eventbystudatails);
 
 //Rotas Participants
 routes.get('/participants',  ParticipantsController.index);

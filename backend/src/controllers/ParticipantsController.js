@@ -4,7 +4,7 @@ module.exports = {
         const id_school = req.headers.authorization;
 
         const eventClass = await connection('participants')
-        .select('participants.id','events.title','students.name_student','class.nameclass', 'participants.authorization')
+        .select('*','participants.id','events.title','students.name_student','class.nameclass', 'participants.authorization')
         .innerJoin('events', 'participants.id_event', 'events.id_event')
         .innerJoin('students', 'participants.id_student', 'students.id')
         .innerJoin('class', 'students.id_class', 'class.id_class')

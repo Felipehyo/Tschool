@@ -6,6 +6,13 @@ module.exports = {
         return res.json(schools);
     },
 
+    async schoolbyid(req, res) {
+        const id = req.headers.authorization;
+
+        const schools = await connection('schools').select('*').where('id', id);
+        return res.json(schools);
+    },
+
     async create(req, res){
         const { nameschool,  num_students, zip_code, email, phone, password} = req.body;
 
